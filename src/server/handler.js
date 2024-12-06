@@ -1,7 +1,8 @@
 const predictClassification = require('../services/inferenceService');
 const crypto = require('crypto');
-
 const storeData = require('../services/storeData');
+const { Firestore } = require('@google-cloud/firestore');
+const firestore = new Firestore();
  
 async function postPredictHandler(request, h) {
   const { image } = request.payload;
@@ -22,7 +23,7 @@ async function postPredictHandler(request, h) {
  
   const response = h.response({
     status: 'success',
-    message: 'Model is predicted successfully.',
+    message: 'Model is predicted successfully',
     data
   })
   response.code(201);
@@ -39,7 +40,7 @@ async function getHistoryPredicthandler (request, h) {
     };
   })
 
-  if ( !data ){
+  if (!data){
     const response = h.response({
       status: 'fail',
       message: 'There are no predictions data yet!'
